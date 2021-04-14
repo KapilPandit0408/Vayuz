@@ -5,10 +5,9 @@ const express           = require('express');
 const app               = express();
 const methodOverride    = require('method-override');
 const { json }          = require('body-parser');
-const jwt               = require("jsonwebtoken");
 const bcrypt            = require("bcrypt");
-const path  = require('path');
-const multer  = require('multer');
+const path              = require('path');
+const multer            = require('multer');
 require("dotenv").config();
 
 
@@ -102,13 +101,10 @@ mongoose.connect('mongodb+srv://kapil123:kapil123@cluster0.wjkqg.mongodb.net/myF
                 res.send(err.message);
             }
             else {
-                const token = jwt.sign({ id: newuser._id }, process.env.JWT_SECRET);
+                
 
-                res.render("date", {
-                    token,
-                    user:newuser
-                  });
-                  console.log(token, passwordHash)
+                res.render("date", {user:newuser});
+                  
             }
         });
     });
@@ -175,11 +171,8 @@ mongoose.connect('mongodb+srv://kapil123:kapil123@cluster0.wjkqg.mongodb.net/myF
           const isMatch = await bcrypt.compare(password, user.password);
           if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
       
-          const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-          res.render("profile",{
-            token,
-            user: user
-          })
+          
+          res.render("profile",{user: user});
         } catch (err) {
           res.status(500).json({ error: err.message });
         }
