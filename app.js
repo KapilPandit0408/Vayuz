@@ -61,8 +61,8 @@ mongoose.connect('mongodb+srv://kapil123:kapil123@cluster0.wjkqg.mongodb.net/myF
     const User = mongoose.model("User", userSchema);
     
     app.get("/", (req, res) => {
-        res.render("form")
-    })
+      res.render("form",{ title: 'Please login',  error: false })
+    });
     app.get("/users", (req, res) => {
         User.find({}, (err, foundUsers)=> {
             if(err) {
@@ -74,32 +74,35 @@ mongoose.connect('mongodb+srv://kapil123:kapil123@cluster0.wjkqg.mongodb.net/myF
         });
     });    
 
-    app.post("/signup", async (req, res) => {
-        const name = req.body.name;
-        const email = req.body.email;
-        const password = req.body.password;
-          const existingUser = await User.findOne({ email: email });
-          if (existingUser)
-           return res
-          .status(400)
-          .json({ msg: "An account with this email already exists." });
+        app.post("/signup", async (req, res) => {
+          const name = req.body.name;
+          const email = req.body.email;
+          const password = req.body.password;  
+
+           User.findOne({ email: email })
+           .then((user) => {
+            if(user) {
+              let error = "";
+              error="Email Already Exists";
+              res.render("form", {error:error});
+              console.log(error)
+            }
+           })
+
 
           const salt = await bcrypt.genSalt();
           const passwordHash = await bcrypt.hash(password, salt);
           const userdata = {name:name, email:email, password:passwordHash};
 
-        User.create(userdata, function(err,newuser) {
-            if(err) {
-                res.send(err.message);
-            }
-            else {
-                
-
-                res.render("date", {user:newuser});
-                  
-            }
+          User.create(userdata, function(err,newuser) {
+              if(err) {
+                  res.send(err.message);
+              }
+              else {
+                  res.render("date", {user:newuser});
+              }
+          });
         });
-    });
 
     
     app.put("/date/:id", (req, res) => {
