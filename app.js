@@ -4,12 +4,13 @@ const mongoose          = require('mongoose');
 const express           = require('express');
 const app               = express();
 const methodOverride    = require('method-override');
-const { json } = require('body-parser');
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const path = require('path');
+const { json }          = require('body-parser');
+const jwt               = require("jsonwebtoken");
+const bcrypt            = require("bcrypt");
+const path  = require('path');
 const multer  = require('multer');
 require("dotenv").config();
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -186,7 +187,4 @@ mongoose.connect('mongodb+srv://kapil123:kapil123@cluster0.wjkqg.mongodb.net/myF
 
 
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Express server started at port  : ${port}`);
-});
+      module.exports=app;
