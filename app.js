@@ -78,14 +78,6 @@ mongoose.connect('mongodb+srv://kapil123:kapil123@cluster0.wjkqg.mongodb.net/myF
         const name = req.body.name;
         const email = req.body.email;
         const password = req.body.password;
-        
-        if (!email || !password)
-        return res.status(400).json({ msg: "Not all fields have been entered." });
-        if (password.length < 8)
-        return res
-          .status(400)
-          .json({ msg: "The password needs to be at least 8 characters long." });
-  
           const existingUser = await User.findOne({ email: email });
           if (existingUser)
            return res
@@ -159,8 +151,7 @@ mongoose.connect('mongodb+srv://kapil123:kapil123@cluster0.wjkqg.mongodb.net/myF
         try {
           const { email, password } = req.body;
       
-          if (!email || !password)
-            return res.status(400).json({ msg: "Not all fields have been entered." });
+
       
           const user = await User.findOne({ email: email });
           if (!user)
