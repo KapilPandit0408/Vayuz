@@ -3,18 +3,24 @@
 <div class="container">
     <form action="/signup" method="POST">
         <h3>Signup Form</h3> <a href="/login">Login</a>
+            <% if (error) { %>
+                <div class="alert alert-dark">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <%= error %>
+                </div>  
+          <% } %>
 
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Enter your Full Name</label>
-            <input type="text" name ="name" class="form-control" id="exampleFormControlInput1" placeholder="Enter Name" required>
+            <input type="text" name ="name"  class="form-control" id="exampleFormControlInput1" placeholder="Enter Name" required>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Enter your Email</label>
-            <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Email" required>
+            <input type="email" name="email"  class="form-control" id="exampleFormControlInput1" placeholder="Enter Email" required>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Create your new Password</label>
-            <input type="password" name="password" class="form-control" id="exampleFormControlInput1" placeholder="Enter Password" required>
+            <input type="password" name="password"  class="form-control" id="exampleFormControlInput1" placeholder="Enter Password" required>
         </div>
 
         <div class="btn-box">
